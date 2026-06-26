@@ -38,8 +38,8 @@ with st.sidebar:
         os.environ["SERPER_API_KEY"] = serper_key
 
     st.divider()
-    demo_mode = st.toggle("Demo mode (no API key needed)", value=False,
-                          help="Shows pre-built output so you can explore the UI without an API key.")
+    demo_mode = st.toggle("Demo mode", value=True,
+                          help="ON by default — shows a realistic pre-built report so you can explore the full UI instantly. Turn OFF and add your Google API key above to run the live 5-agent pipeline.")
 
     st.divider()
     st.subheader("Agent Pipeline")
@@ -89,6 +89,9 @@ with col1:
     run_button = st.button("Run Research", type="primary", use_container_width=True)
 with col2:
     st.caption("Runs 5 AI agents in sequence · typically 30–60 seconds")
+
+if demo_mode:
+    st.info("**Demo mode is ON.** The full 5-agent pipeline (Search → Reader → Critic → Synthesis → Report Writer) will run with pre-built data so you can explore the UI instantly. Toggle it OFF in the sidebar and add a Google API key to run live agents.")
 
 if run_button:
     if not query.strip():
